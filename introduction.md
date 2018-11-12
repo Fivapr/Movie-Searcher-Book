@@ -9,8 +9,6 @@ isFree: true
 
 Мувисерчер — тестовое SPA после которого каждый анон может идти покорять эйчарок. С его помощью вы сможете найти работу до 50к/наносек в своем миллионнике или до 80к/наносек в ДСе. Сегодня и только сегодня первая вводная глава бесплатна — это тизер обширного туториала по миру фронтэнда, цена которого будет всего 10$. 10$ сегодня, 1000\$ заработка уже через месяц!
 
-#### Курс овервью и стек
-
 Наш мувисерчер будет построен с помощью либ React, Redux, React-Router Redux-Saga, ImmutableJS, Reselect, Redux-symbiote, Material-UI,Styled-components и нескольких других полезных либ. Функционал покроет обычный поиск, страничку фильма, поиск по фильтрам и добавление любимых фильмов в локалстораж. Сначала мы напишем простейший серчер по строке на реакте, потом перенесем стейт в редакс и поочередно будем включать и рефакторить наш код с множеством новых либ.
 
 ## React
@@ -26,7 +24,7 @@ npx create-react-app moviesearcher
 ```
 
 И получаем вот такую файловую структуру.
-![Пикча структуры](https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/cra-file-structure.png)
+![Пикча структуры](https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/cra-file-structure.png=250x)
 
 Можете насладиться тем, что хотрелоад работает из коробки набрав в консоли:
 
@@ -51,7 +49,7 @@ export default App;
 ```
 
 Продолжим очистку дефолтного CRA и удалим все остальные файлы кроме src/index.js, src/App.js и public/index.html.
-![Пикча структуры](https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/clean-file-structure.png)
+![Пикча структуры](https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/clean-file-structure.png =250x)
 
 В public/index.html оставим только самое нужное, а именно <div id="root"></div>, root — тот самый айдишник, в который реакт будет рендерить весь апп.
 
