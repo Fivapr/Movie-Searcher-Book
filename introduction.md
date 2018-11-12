@@ -1,68 +1,114 @@
 ---
-title: MovieSearcher Book
+title: Introduction
 seoTitle: moviesearcher app
 seoDescription: moviesearcher app for frontend thread
 isFree: true
 ---
 
-## Введение или что такое мувисерчер для чего эта книга?
+## Введение или что такое мувисерчер и для чего эта книга?
 
-Мувисерчер — тестовое SPA после которого каждый анон может идти покорять эйчарок. С его помощью вы сможете найти работу до 50к/наносек в своем миллионнике или до 80к/наносек в ДСе. Сегодня и только сегодня первая вводная глава бесплатна — это тизер обширного туториала по миру фронтэнда, цена которого будет всего 10$. 10$ сегодня, 1000$ заработка уже через месяц!
+Мувисерчер — тестовое SPA после которого каждый анон может идти покорять эйчарок. С его помощью вы сможете найти работу до 50к/наносек в своем миллионнике или до 80к/наносек в ДСе. Сегодня и только сегодня первая вводная глава бесплатна — это тизер обширного туториала по миру фронтэнда, цена которого будет всего 10$. 10$ сегодня, 1000\$ заработка уже через месяц!
 
 #### Курс овервью и стек
 
-Наш мувисерчер будет построен с помощью либ React, Redux, Redux-Saga, ImmutableJS, Reselect, Material-UI, Redux-symbiote и нескольких других полезных либ. Функционал покроет обычный поиск, страничку фильма, поиск по фильтрам и добавление любимых фильмов в локалстораж. Сначала мы напишем простейший серчер по строке на реакте, потом перенесем стейт в редакс и поочередно будем включать и рефакторить наш код с множеством новых либ.
+Наш мувисерчер будет построен с помощью либ React, Redux, React-Router Redux-Saga, ImmutableJS, Reselect, Redux-symbiote, Material-UI,Styled-components и нескольких других полезных либ. Функционал покроет обычный поиск, страничку фильма, поиск по фильтрам и добавление любимых фильмов в локалстораж. Сначала мы напишем простейший серчер по строке на реакте, потом перенесем стейт в редакс и поочередно будем включать и рефакторить наш код с множеством новых либ.
 
 ## React
 
-Прежде, чем начинать пилить серчер, тебя, мой уважаемый анон, может заинтересовать [дока реакта](https://reactjs.org/docs/getting-started.html) и, откуда бы вы их не взяли, знания жаваскрипта и ес6 фич типа классов и стрелочных функций.
+Прежде, чем начинать пилить серчер, тебя может заинтересовать [дока реакта](https://reactjs.org/docs/getting-started.html) и, откуда бы вы их не взяли, знания жаваскрипта и ес6 фич типа классов, промизов и стрелочных функций.
 
 А теперь начнем.
 
-В общем где-то здесь будет код серчера и объяснения. Приглашаю добровольцев для помощи в написании этой невероятной книги, а сегодня я устал.
+Чтобы забутстрапить проект и не ковыряться в вебпаке мы использовуем create-react-app. Просто устанавливаем ноду и вводим в терминал/cmd:
 
 ```
-import React from "react";
-import { render } from "react-dom";
-import { BrowserRouter } from "react-router-dom";
-import { createStore, applyMiddleware, compose } from "redux";
-import { Provider } from "react-redux";
-import { rootReducer } from "./RootReducer";
-import { composeWithDevTools } from "redux-devtools-extension";
-import createSagaMiddleware from "redux-saga";
-import rootSaga from "./RootSaga";
-import WebFontLoader from "webfontloader";
-import "./index.css";
-import App from "./App";
+npx create-react-app moviesearcher
+```
 
-WebFontLoader.load({
-  google: {
-    families: ["Roboto:300,400,500,700", "Material Icons"]
+И получаем вот такую файловую структуру.
+![Пикча структуры](https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/cra-file-structure.png)
+
+Можете насладиться тем, что хотрелоад работает из коробки набрав в консоли:
+
+```
+yarn start
+```
+
+И поменяв то что там есть на простейший компонент, который отрендерит один див:
+
+```
+import React, { Component } from 'react';
+
+class App extends Component {
+  render() {
+    return (
+      <div>moviesearcher</div>
+    );
   }
-});
+}
 
-const sagaMiddleware = createSagaMiddleware();
+export default App;
+```
 
-const initialState = {};
+Продолжим очистку дефолтного CRA и удалим все остальные файлы кроме src/index.js, src/App.js и public/index.html.
+![Пикча структуры](https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/clean-file-structure.png)
 
-const store = createStore(
-  rootReducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
-);
+В public/index.html оставим только самое нужное, а именно <div id="root"></div>, root — тот самый айдишник, в который реакт будет рендерить весь апп.
 
-sagaMiddleware.run(rootSaga);
+```
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Moviesearcher</title>
+  </head>
+  <body>
+    <noscript> You need to enable JavaScript to run this app. </noscript>
+    <div id="root"></div>
+  </body>
+</html>
+```
 
-render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById("root")
-);
+В src/index.js оставим следующее:
 
-// ========================================
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
-лал
+ReactDOM.render(<App />, document.getElementById('root'));
+```
+
+Здесь мы импортим ReactDOM.render, чтобы в див, с айди 'root' заинжектить весь наш <App />, который мы заимпортили из соседнего файла. А импорт реакта нам здесь нужен для поддержки синтаксиса jsx, ака <App />. В итоге получаем чистый проект с тремя файлами. App.js остается без изменений. И далее в этой главе мы будем работать только в нём.
+
+## Поиск фильмов и работа с moviedb api
+
+Первым делом, чтобы искать фильмы нужен инпут, добавим [controlled input](https://reactjs.org/docs/getting-started.html).
+Для этого нам нужно:
+
+1. Создать внутри нашего класса объект стейт с полем value, в котором мы будем хранить данные инпута. После объявления он будет доступен внутри класса через this.state.value. Где this — это инстанс нашего класса, а стейт - обычный объект. Заметьте, что мы можем с новым синтаксисом полей классов не использовать constructor, а так и писать 'state ='
+2. Создать обычный input c атрибутом value={this.state.value}. Теперь как бы вы не пытались поменять значение в браузере, оно не изменится без ведома реакта, и значение инпута всегда будет соответствовать его значению из стейта компонента. Вы можете поменять state = { value: 'bleh-bleh-bleh' }, и оно изменится в браузере.
+3. Сделать так, чтобы реакт реагировал на евенты из браузера. Для этого добавим инпуту атрибут onChange={this.onChange}. И также как со стейтом, напишем просто 'onChange =', используя стрелочную функцию мы внутри тела функции можем использовать this равный инстансу нашего класса. Грубо говоря, чтобы понять, чем является this стрелочной функции, мы просто смотрим вокруг нее, и то что мы видим - и есть this. В нашем случае функция располагается прямо в классе, и инстанс этого класса и будет this'ом для нашей функции.
+   В этой функции мы возьмем e, событие браузера, в нашем случае - change, возьмем из него target, который является зафокушенным во время события элементом. И из него заберем value. И присвоим это значение из евента нашему полю value из стейта с помощью специальной функции setState, которая как и много других методов идет с классом Component. Хочу заметить, что стейт - это не какое-то специальное зарезервированное имя, вы можете называть переменные класса как угодно, но функция setState обновляет именно объект стейт и триггерит ререндер, поэтому меняющиеся данные стоит хранить именно в нем.
+   Можете сделать console.log(e) или console.log(this) вместо setState'а, чтобы разобраться, что внутри евента, и чем является this у onChange функции (или лучше написать debugger; и поучиться работать с хромдевтулсами).
+
+```
+import React, { Component } from 'react'
+
+class App extends Component {
+  state = { value: '' }
+  onChange = e => this.setState({ value: e.target.value })
+
+  render() {
+    return (
+      <>
+        <input value={this.state.value} onChange={this.onChange} />
+      </>
+    )
+  }
+}
+
+export default App
+
 ```
