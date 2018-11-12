@@ -163,6 +163,39 @@ componentDidMount — это lifecycle hook, он позволяет на опр
 - `https://api.themoviedb.org/3/` — каждый запрос к тмдб апи будет отправляться именно сюда
 - `movie/` — эта часть значит, что мы хотим от них именно фильмы
 - `top_rated` — это главная часть запроса, нам пришлют 20 первых фильмов с самым высоким рейтингом.
-- `?api_key=59017ce86d5101576f32f47160168519` — после вопроса мы пишем так называемые params'ы, далее они парсятся на сервере тмдб, чтобы он мог понять, что конкретно мы от него хотим. api_key нужно получить на сайте .[themoviedb](https://themoviedb.org/) его мы должны прикреплять к каждому запросу, потому что тмдб не хочет, чтобы кто попало отправлял запросы и тратил их деньги.
+- `?api_key=59017ce86d5101576f32f47160168519` — после вопроса мы пишем так называемые params'ы, далее они парсятся на сервере тмдб, чтобы он мог понять, что конкретно мы от него хотим. api_key нужно получить на сайте [themoviedb](https://themoviedb.org/), его мы должны прикреплять к каждому запросу, потому что тмдб не хочет, чтобы кто попало отправлял запросы и тратил их деньги.
 
 - `.then(res => this.setState({ movies: res.data.results }))` — как только нам приходит ответ мы просто кладем его в стейт и он автоматически рендерится. Ошибки мы пока особым образом не обрабатываем, просто показываем их в консоли.
+
+Не забудем добавить импорт axios'а и получим такой код компонента. Vois la. Теперь у нас при первом рендере появляется список фильмов!
+
+```
+import React, { Component } from 'react'
+import axios from 'axios'
+
+class App extends Component {
+  state = { value: '', movies: [] }
+  onChange = e => this.setState({ value: e.target.value })
+
+  componentDidMount() {
+    axios
+      .get('https://api.themoviedb.org/3/movie/top_rated?api_key=59017ce86d5101576f32f47160168519')
+      .then(res => this.setState({ movies: res.data.results }))
+      .catch(err => console.log(err))
+  }
+
+  render() {
+    return (
+      <>
+        <input value={this.state.value} onChange={this.onChange} />
+        {this.state.movies.map(movie => (
+          <div key={movie.id}>{movie.title}</div>
+        ))}
+      </>
+    )
+  }
+}
+
+export default App
+
+```
