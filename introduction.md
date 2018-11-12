@@ -24,7 +24,7 @@ npx create-react-app moviesearcher
 ```
 
 И получаем вот такую файловую структуру.
-![Пикча структуры](https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/cra-file-structure.png=250x)
+<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/cra-file-structure.png" width=250 alt="Пикча структуры" />
 
 Можете насладиться тем, что хотрелоад работает из коробки набрав в консоли:
 
