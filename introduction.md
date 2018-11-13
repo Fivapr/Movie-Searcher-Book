@@ -12,7 +12,7 @@ isFree: true
 Наш мувисерчер будет построен с помощью либ React, Redux, React-Router Redux-Saga, ImmutableJS, Reselect, Redux-symbiote, Material-UI,Styled-components и нескольких других полезных либ. Функционал покроет обычный поиск, страничку фильма, поиск по фильтрам и добавление любимых фильмов в локалстораж. Сначала мы напишем простейший серчер по строке на реакте, потом перенесем стейт в редакс и поочередно будем включать новые возможности и рефакторить наш код, применяя best practices.
 
 Если вас заинтересует, то текущий код серчера можно найти в [этой репе](https://github.com/Fivapr/Movie-Searcher-App)
-А текущий инстанс задеплоен по адресу [moviesearcher.app](moviesearcher.app)
+А текущий инстанс задеплоен по адресу [moviesearcher.app](https://moviesearcher.app)
 
 ## React
 
@@ -761,4 +761,4 @@ yarn now
 
 Ура! Мувисерчер теперь в интернете!
 
-Итоговый код первой главы можно найти в [этом коммите](https://github.com/Fivapr/Movie-Searcher-App/commit/28e65077e0728bbb654659c178f21a059001c2a0)
+Итоговый код первой главы можно найти в [этом коммите](https://github.com/Fivapr/Movie-Searcher-App/commit/841c2d73c47f97073454edb4294522c0c6bdf671)
