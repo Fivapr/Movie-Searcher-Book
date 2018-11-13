@@ -482,7 +482,7 @@ export default withStyles(styles)(App)
 
 Сразу покажу конечную файловую структуру и код `App.js`.
 
-<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/end-file-structure.png" width=238 alt="Пикча структуры" />
+<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/end-file-structure.png" width=242 alt="Пикча структуры" />
 
 ```
 import React, { Component } from 'react'
