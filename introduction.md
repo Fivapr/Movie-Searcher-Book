@@ -24,7 +24,7 @@ npx create-react-app moviesearcher
 ```
 
 И получаем вот такую файловую структуру.
-<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/cra-file-structure.png" width=250 alt="Пикча структуры" />
+<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/cra-file-structure.png" width=245 alt="Пикча структуры" />
 
 Можете насладиться тем, что хотрелоад работает из коробки набрав в консоли:
 
@@ -49,7 +49,7 @@ export default App;
 ```
 
 Продолжим очистку дефолтного CRA и удалим все остальные файлы кроме src/index.js, src/App.js и public/index.html.
-<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/clean-file-structure.png" width=250 alt="Пикча структуры" />
+<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/clean-file-structure.png" width=246 alt="Пикча структуры" />
 
 В public/index.html оставим только самое нужное, а именно `<div id="root"></div>`, `id="root"` — тот самый айдишник, в который реакт будет рендерить весь апп.
 
@@ -139,7 +139,7 @@ export default App
 
 3. Теперь нам нужны сами фильмы, сейчас мы рендерим пустой массив. Чтобы получить фильмы, нам нужно отправить запрос к tmdb api, забрать из ответа массив фильмов и положить в `state.movies` с помощью `setState`, после чего реакт реактивно (самостоятельно) их отрендерит. Пока что мы будем рендерить только тайтлы, но дальше нам потребуется еще ссылка на постер и краткое описание, оба они есть среди полей ответа. Так будет выглядеть массив фильмов в девтулсах.
 
-<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/response.png" width=784 height=648 alt="response json" />
+<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/response.png" width=606 height=530 alt="response json" />
 
 Для удобного отправления запросов установим небольшую либу
 
@@ -206,7 +206,7 @@ export default App
 
 Чтобы обновлять список фильмов синхронно с ченжем инпута, нам либо после каждого нажатия клавиши (onChange евента) или после каждого setState нужно вызывать запрос, содержащий строку поиска, ждать его ресолва и после этого так же как на дидМаунте класть в стейт фильмы, а дальше они сами отрендерятся.
 
-Для этого мы должны немного поменять строку запроса из дидМаунта, `movie/top_rated` на `search/movie`, и вставить в нее параметр `query=\${this.state.value}`. Тогда, на каждое изменение `this.state.value` мы отправляли бы новый запрос поиска фильма и получали новый набор фильмов.
+Для этого мы должны немного поменять строку запроса из дидМаунта, `movie/top_rated` на `search/movie`, и вставить в нее параметр `query=${this.state.value}`. Тогда, на каждое изменение `this.state.value` мы отправляли бы новый запрос поиска фильма и получали новый набор фильмов.
 
 Если бы мы делали этот запрос сразу после `setState`, то код ниже бы не сработал правильно
 
@@ -481,6 +481,8 @@ export default withStyles(styles)(App)
 - Также сейчас наш `<div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>` обладает инлайновыми стилями. Ради однообразия с материал-юи и кодстайла мы засунем эти стили в объект withStyles и прокинем пропсами через withStyles HOC.
 
 Сразу покажу конечную файловую структуру и код `App.js`.
+
+<img src="https://raw.githubusercontent.com/Fivapr/Movie-Searcher-Book/master/end-file-structure.png" width=238 alt="Пикча структуры" />
 
 ```
 import React, { Component } from 'react'
